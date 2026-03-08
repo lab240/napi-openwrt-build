@@ -1,2 +1,2 @@
-#hi
+
 # napi-openwrt-build

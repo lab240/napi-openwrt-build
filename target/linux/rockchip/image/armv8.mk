@@ -471,7 +471,9 @@ define Device/napilab_napic
   mosquitto-client \
   screen \
   xz-utils \
-  mbpoll
+  mbpoll \
+  openssh-sftp-server \
+  luci-app-mbusd
 endef
 TARGET_DEVICES += napilab_napic
 

@@ -1,0 +1,20 @@
+{
+	"luci-app-mbusd": {
+		"description": "Grant UCI access for luci-app-mbusd",
+		"read": {
+			"uci": [ "mbusd" ],
+			"ubus": {
+				"service": [ "list" ]
+			},
+			"file": {
+				"/etc/init.d/mbusd": [ "exec" ]
+			}
+		},
+		"write": {
+			"uci": [ "mbusd" ],
+			"file": {
+				"/etc/init.d/mbusd": [ "exec" ]
+			}
+		}
+	}
+}

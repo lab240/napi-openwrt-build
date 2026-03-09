@@ -1,0 +1,6 @@
+#!/bin/sh
+if ! uci -q get network.lan.macaddr > /dev/null 2>&1; then
+    MAC=$(cat /sys/bus/nvmem/devices/rockchip-otp0/nvmem | md5sum | sed 's/\(..\)\(..\)\(..\)\(..\)\(..\)\(..\).*/02:\1:\2:\3:\4:\5/')
+    uci set network.lan.macaddr="$MAC"
+    uci commit network
+fi

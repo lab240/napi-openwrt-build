@@ -1,18 +1,17 @@
 #!/bin/sh
-
-# Create default mbusd config if not exists
-if ! uci -q get mbusd.@mbusd[0] > /dev/null 2>&1; then
-	uci set mbusd.cfg=mbusd
-	uci set mbusd.cfg.enabled=0
-	uci set mbusd.cfg.port=502
-	uci set mbusd.cfg.loglevel=2
-	uci set mbusd.cfg.device='/dev/ttyUSB0'
-	uci set mbusd.cfg.speed=19200
-	uci set mbusd.cfg.databits=8
-	uci set mbusd.cfg.parity='N'
-	uci set mbusd.cfg.stopbits=2
-	uci set mbusd.cfg.rts=0
-	uci commit mbusd
-fi
-
+uci -q delete mbusd.@mbusd[0]
+uci -q batch << EOF
+add mbusd mbusd
+set mbusd.@mbusd[0].enabled=0
+set mbusd.@mbusd[0].port=502
+set mbusd.@mbusd[0].loglevel=2
+set mbusd.@mbusd[0].device=/dev/ttyS1
+set mbusd.@mbusd[0].speed=115200
+set mbusd.@mbusd[0].databits=8
+set mbusd.@mbusd[0].parity=N
+set mbusd.@mbusd[0].stopbits=1
+set mbusd.@mbusd[0].rts=0
+commit mbusd
+EOF
+/etc/init.d/mbusd disable
 exit 0

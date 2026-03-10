@@ -14,24 +14,36 @@ var callServiceList = rpc.declare({
 });
 
 return view.extend({
-load: function() {
-    return Promise.all([
-        callServiceList('mbusd'),
-        fs.list('/etc/rc.d').then(function(entries) {
-            return entries.some(function(e) {
-                return e.name.indexOf('mbusd') !== -1;
-            });
-        }).catch(function() { return false; }),
-        uci.load('mbusd').then(function() {
-            return uci.get('mbusd', '@mbusd[0]', 'enabled') === '1';
-        })
-    ]);
-},
+	load: function() {
+		return Promise.all([
+			callServiceList('mbusd'),
+			fs.list('/etc/rc.d').then(function(entries) {
+				return entries.some(function(e) {
+					return e.name.indexOf('mbusd') !== -1;
+				});
+			}).catch(function() { return false; }),
+			uci.load('mbusd').then(function() {
+				return uci.get('mbusd', '@mbusd[0]', 'enabled') === '1';
+			}),
+			fs.exec('sh', ['-c', 'pgrep mbusd | while read p; do tr "\\0" " " < /proc/$p/cmdline; done'
+			]).then(function(res) {
+				return res.stdout ? res.stdout.trim() : null;
+			}).catch(function() { return null; }),
+			fs.exec('sh', ['-c', 'ip -4 addr show eth0 | grep -oE "inet [0-9.]+" | sed "s/inet //"'
+			]).then(function(res) {
+    				return res.stdout ? res.stdout.trim() : null;
+			}).catch(function() { return null; })
+		]);
+	},
+
 	render: function(data) {
 		var m, s, o;
-		var isRunning = false;
 		var isEnabled = data[1];
+		var isUciEnabled = data[2];
+		var cmdline = data[3];
+		var ipaddr = data[4];
 
+		var isRunning = false;
 		try {
 			isRunning = Object.keys(data[0].mbusd.instances || {}).length > 0;
 		} catch(e) {
@@ -39,7 +51,7 @@ load: function() {
 		}
 
 		m = new form.Map('mbusd', _('Modbus Gateway'),
-			_('Configuration for mbusd - Modbus TCP to RTU/ASCII gateway'));
+			_('Configuration for mbusd - Modbus TCP to RTU/ASCII gateway. To save settings press "Save & Apply".'));
 
 		m.chain('mbusd');
 
@@ -53,6 +65,20 @@ load: function() {
 		o.default = isRunning
 			? '<span style="color:green;font-weight:bold;">&#9679; ' + _('Running') + '</span>'
 			: '<span style="color:red;font-weight:bold;">&#9679; ' + _('Stopped') + '</span>';
+
+		/* Process status */
+		o = s.option(form.DummyValue, '_cmdline', _('Process status'));
+		o.rawhtml = true;
+		o.default = cmdline
+			? '<code style="font-size:0.85em;color:green;">' + cmdline + '</code>'
+			: '<span style="color:grey;">-</span>';
+
+		/* Listening on */
+		o = s.option(form.DummyValue, '_listen', _('Listening on'));
+		o.rawhtml = true;
+		o.default = (isRunning && ipaddr)
+			? '<span style="color:green;">' + ipaddr + ':' + (uci.get('mbusd', '@mbusd[0]', 'port') || '502') + '</span>'
+			: '<span style="color:grey;">-</span>';
 
 		/* Start/Stop */
 		o = s.option(form.Button, '_startstop', _('Service'));
@@ -90,7 +116,14 @@ load: function() {
 		o.inputtitle = isEnabled ? _('Disable autostart') : _('Enable autostart');
 		o.onclick = function() {
 			var action = isEnabled ? 'disable' : 'enable';
-			return fs.exec('/etc/init.d/mbusd', [action]).then(function() {
+			return uci.load('mbusd').then(function() {
+				uci.set('mbusd', '@mbusd[0]', 'enabled', isEnabled ? '0' : '1');
+				return uci.save();
+			}).then(function() {
+				return uci.apply();
+			}).then(function() {
+				return fs.exec('/etc/init.d/mbusd', [action]);
+			}).then(function() {
 				ui.addNotification(null, E('p', _('Autostart ') + action + _('d')), 'info');
 				window.setTimeout(function() { window.location.reload(); }, 1000);
 			});
@@ -132,7 +165,7 @@ load: function() {
 		s.addremove = false;
 
 		o = s.option(form.Value, 'device', _('Serial Device'));
-		o.placeholder = '/dev/ttyUSB0';
+		o.placeholder = '/dev/ttyS1';
 		o.rmempty = false;
 		o.value('/dev/ttyUSB0', '/dev/ttyUSB0');
 		o.value('/dev/ttyUSB1', '/dev/ttyUSB1');
@@ -150,7 +183,7 @@ load: function() {
 		o.value('38400',  '38400');
 		o.value('57600',  '57600');
 		o.value('115200', '115200');
-		o.default = '19200';
+		o.default = '115200';
 
 		o = s.option(form.ListValue, 'databits', _('Data Bits'));
 		o.value('7', '7');
@@ -166,7 +199,7 @@ load: function() {
 		o = s.option(form.ListValue, 'stopbits', _('Stop Bits'));
 		o.value('1', '1');
 		o.value('2', '2');
-		o.default = '2';
+		o.default = '1';
 
 		o = s.option(form.ListValue, 'rts', _('RTS Mode'),
 			_('RTS signal control for RS485 direction switching'));

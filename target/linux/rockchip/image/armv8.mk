@@ -460,6 +460,9 @@ define Device/napilab_napic
   kmod-fs-exfat \
   kmod-fs-ntfs3 \
   kmod-usb-storage \
+  kmod-usb-serial-option \
+  kmod-usb-net-qmi-wwan \
+  uqmi \
   minicom \
   htop \
   nano \
@@ -473,6 +476,10 @@ define Device/napilab_napic
   xz-utils \
   mbpoll \
   openssh-sftp-server \
+  bash \
+  luci-ssl \
+  luci-theme-openwrt-2020 \
+  luci-proto-qmi \
   luci-app-mbusd
 endef
 TARGET_DEVICES += napilab_napic

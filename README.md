@@ -1,8 +1,12 @@
 # OpenWrt for NapiLab Napi family (RK3308)
 
-Production-ready OpenWrt build for **NapiLab Napi** industrial IoT gateways based on Rockchip RK3308 SoC.
+Production-ready OpenWrt build for **NapiLab Napi** industrial IoT SBC and SOM based on Rockchip RK3308 SoC.
 
 This repository contains all customizations needed to turn a vanilla OpenWrt snapshot into a fully functional industrial Modbus TCP gateway with a polished web interface.
+
+---
+
+![](img/srn.jpeg)
 
 ---
 
@@ -10,9 +14,9 @@ This repository contains all customizations needed to turn a vanilla OpenWrt sna
 
 | Board | Storage | Docs |
 |-------|---------|------|
-| [NapiLab Napi-C](https://napiworld.ru/docs/napi-intro/) | 4GB NAND — 32GB eMMC | Industrial gateway |
-| [NapiLab Napi-P](https://napiworld.ru/docs/napi-intro/) | 4GB NAND — 32GB eMMC | Industrial gateway |
-| [NapiLab Napi-Slot](https://napiworld.ru/docs/napi-som-intro) | 4GB NAND — 32GB eMMC | SOM-based gateway |
+| [NapiLab Napi-C](https://napiworld.ru/docs/napi-intro/) | 4GB NAND — 32GB eMMC | Industrial SBC |
+| [NapiLab Napi-P](https://napiworld.ru/docs/napi-intro/) | 4GB NAND — 32GB eMMC | Industrial SBC |
+| [NapiLab Napi-Slot](https://napiworld.ru/docs/napi-som-intro) | 4GB NAND — 32GB eMMC | SOM |
 | [Radxa ROCK Pi S](https://wiki.radxa.com/RockpiS) | — | Community board, same RK3308 SoC |
 
 > All boards share the same Rockchip RK3308 SoC — one firmware to rule them all.

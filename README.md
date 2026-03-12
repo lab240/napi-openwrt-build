@@ -45,9 +45,9 @@ This repository contains all customizations needed to turn a vanilla OpenWrt sna
 
 ### Device Tree
 - Custom DTS `rk3308-napi-c.dts` based on ROCK Pi S
-- UART1 → `/dev/ttyS1` (RS485 via mbusd)
+- UART1 → `/dev/ttyS1`
 - UART2 → `/dev/ttyS2`
-- Bluetooth disabled
+
 
 ### Stable MAC address
 Generated deterministically from RK3308 OTP data — same MAC across reboots on every board:
@@ -61,6 +61,8 @@ MAC=$(cat /sys/bus/nvmem/devices/rockchip-otp0/nvmem | md5sum | \
 
 | Script | Purpose |
 |--------|---------|
+| `70-rootpt-resize` | Resize root partition to fill storage (reboot) |
+| `80-rootfs-resize` | Expand filesystem after partition resize (reboot) |
 | `91-bash` | Set bash as default shell for root |
 | `92-timezone` | Set timezone to MSK-3 |
 | `93-console-password` | Enable password prompt on serial console |
@@ -78,8 +80,8 @@ MAC=$(cat /sys/bus/nvmem/devices/rockchip-otp0/nvmem | md5sum | \
 - `kmod-usb-net-qmi-wwan` + `uqmi` — LTE modem support (Quectel EP06)
 - `openssh-sftp-server` — SFTP access
 - `bash`, `htop`, `nano`, `screen`, `tcpdump`, `ethtool` — admin tools
+- `parted`, `fdisk`, `cfdisk`, `resize2fs`, `losetup` — disk management and partition resize
 - `luci-ssl-wolfssl` — HTTPS for LuCI
-
 ---
 
 ## luci-app-mbusd
@@ -153,6 +155,20 @@ dd if=openwrt-rockchip-armv8-napilab_napic-ext4-sysupgrade.img of=/dev/sdX bs=4M
 | Web UI | `http://<IP>/` → LuCI |
 | SSH | `root@<IP>` |
 | Console | ttyS0, 1500000 baud |
+
+---
+
+## Changelog
+
+### v1.0.1
+- Automatic root partition resize on first boot (double reboot)
+- Added packages: parted, fdisk, cfdisk, resize2fs, losetup
+
+### v1.0.0
+- Initial release
+- Custom U-Boot, DTS, uci-defaults
+- mbusd + luci-app-mbusd
+- Stable MAC from OTP
 
 ---
 

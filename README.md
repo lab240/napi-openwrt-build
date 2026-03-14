@@ -22,6 +22,34 @@ This repository contains all customizations needed to turn a vanilla OpenWrt sna
 > All boards share the same Rockchip RK3308 SoC — one firmware to rule them all.
 
 ---
+## Using with other RK3308 boards
+ 
+This build is not limited to NapiLab Napi boards. Any board based on **Rockchip RK3308** can use the same customizations — just change the target profile in `.config`.
+ 
+To build for a different board, replace the target device:
+ 
+```bash
+# List available RK3308 boards
+grep "CONFIG_TARGET_rockchip_armv8_DEVICE" .config
+ 
+# Example: build for Radxa ROCK Pi S
+sed -i 's/CONFIG_TARGET_PROFILE="DEVICE_napilab_napic"/CONFIG_TARGET_PROFILE="DEVICE_radxa_rock-pi-s"/' .config
+```
+ 
+To switch to a different board, edit `.config` directly — never use `make menuconfig` as it will overwrite your configuration:
+```bash
+# Switch target profile to Radxa ROCK Pi S
+sed -i 's/DEVICE_napilab_napic/DEVICE_radxa_rock-pi-s/g' .config
+```
+ 
+All uci-defaults scripts, packages and customizations will work on any RK3308 board. The only board-specific parts are:
+- Device Tree (`rk3308-napi-c.dts`) — may need adjustment for different pin mux
+- U-Boot defconfig (`napic-rk3308`) — based on ROCK Pi S, works on similar hardware
+- MAC generation from OTP — works on all RK3308 boards
+ 
+> The same approach works for any OpenWrt-supported Rockchip board (RK3328, RK3566, RK3568, RK3588) — just select the appropriate target profile and adapt the DTS if needed.
+
+---
 
 ## SoC features
 
@@ -158,7 +186,53 @@ dd if=openwrt-rockchip-armv8-napilab_napic-ext4-sysupgrade.img of=/dev/sdX bs=4M
 
 ---
 
+## Zigbee2MQTT
+ 
+This build supports running Zigbee2MQTT on OpenWrt. Since OpenWrt uses **musl libc**, the standard Node.js binaries won't work — a special musl/aarch64 build is required.
+ 
+A pre-built archive is available in [Releases](https://github.com/lab240/napi-openwrt-build/releases):
+ 
+```
+zigbee2mqtt-2.9.1-openwrt-aarch64-musl.tar.gz
+```
+ 
+### Quick start
+ 
+```bash
+# Install Node.js (musl/arm64)
+wget https://unofficial-builds.nodejs.org/download/release/v22.22.0/node-v22.22.0-linux-arm64-musl.tar.gz
+mkdir -p /opt/node
+tar xzf node-v22.22.0-linux-arm64-musl.tar.gz -C /opt/node --strip-components=1
+ 
+# Install Zigbee2MQTT
+mkdir /opt/zigbee2mqtt
+tar xzf zigbee2mqtt-2.9.1-openwrt-aarch64-musl.tar.gz -C /opt/zigbee2mqtt/
+ 
+# Install runtime dependency
+apk add libstdcpp6
+ 
+# Run
+export PATH=/opt/node/bin:$PATH
+cd /opt/zigbee2mqtt && npm start
+```
+ 
+Web UI available at `http://<IP>:8080/`
+ 
+> Requires 512 MB RAM and ~500 MB free disk space. Mosquitto is already pre-installed in this build.
+ 
+
 ## Changelog
+
+### v1.0.2
+- Zigbee2MQTT 2.9.1 pre-built archive for musl/aarch64 available in Releases
+- Automatic root partition and filesystem resize on first boot (scripts 70/80-rootpt-resize, double reboot)
+- **Disk management**: `parted`, `fdisk`, `cfdisk`, `losetup`, `resize2fs`
+- **1-Wire / DS18B20**: `owfs`, `owserver`, `owfs-client` — 1-Wire device support via OWFS
+- **I2C**: `i2c-tools`, `libi2c` — I2C bus diagnostics and device access
+- **GPIO**: `gpiod-tools`, `libgpiod` — GPIO control via libgpiod
+- **Collectd**: `collectd` + modules `mqtt`, `exec`, `network`, `rrdtool`, `modbus` — metrics collection and export
+- **C++ runtime**: `libstdcpp` — required for native Node.js modules (Zigbee2MQTT)
+- **Utilities**: `tree`, `fuse-utils`
 
 ### v1.0.1
 - Automatic root partition resize on first boot (double reboot)

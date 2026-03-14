@@ -101,15 +101,39 @@ MAC=$(cat /sys/bus/nvmem/devices/rockchip-otp0/nvmem | md5sum | \
 | `99-dhcp` | DHCP configuration |
 
 ### Pre-installed packages
+
+**Industrial stack**
 - `mosquitto` + `mosquitto-client` — MQTT broker
 - `mbusd` + `luci-app-mbusd` — Modbus TCP gateway with web UI
 - `mbpoll` — Modbus CLI tool
-- `kmod-usb-serial-ch341`, `cp210x`, `ftdi`, `pl2303` — USB-Serial adapters
-- `kmod-usb-net-qmi-wwan` + `uqmi` — LTE modem support (Quectel EP06)
+
+**1-Wire / DS18B20**
+- `owfs`, `owserver`, `owfs-client` — 1-Wire bus support and device access
+
+**I2C / GPIO**
+- `i2c-tools`, `libi2c` — I2C bus diagnostics
+- `gpiod-tools`, `libgpiod` — GPIO control via libgpiod
+
+**Metrics collection**
+- `collectd` + modules `mqtt`, `exec`, `network`, `rrdtool`, `modbus` — metrics collection and export
+
+**USB-Serial adapters**
+- `kmod-usb-serial-ch341`, `cp210x`, `ftdi`, `pl2303`
+
+**LTE modem**
+- `kmod-usb-net-qmi-wwan` + `uqmi` — Quectel EP06 support
+
+**Disk management and partition resize**
+- `parted`, `fdisk`, `cfdisk`, `losetup`, `resize2fs`
+
+**Networking and admin**
 - `openssh-sftp-server` — SFTP access
-- `bash`, `htop`, `nano`, `screen`, `tcpdump`, `ethtool` — admin tools
-- `parted`, `fdisk`, `cfdisk`, `resize2fs`, `losetup` — disk management and partition resize
 - `luci-ssl-wolfssl` — HTTPS for LuCI
+- `tcpdump`, `ethtool` — network diagnostics
+- `bash`, `htop`, `nano`, `screen`, `tree` — admin tools
+
+**C++ runtime**
+- `libstdcpp` — required for native Node.js modules (Zigbee2MQTT)
 ---
 
 ## luci-app-mbusd

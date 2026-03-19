@@ -1,0 +1,15 @@
+Index: linux-6.12.74/drivers/mmc/core/sd.c
+===================================================================
+--- linux-6.12.74.orig/drivers/mmc/core/sd.c
++++ linux-6.12.74/drivers/mmc/core/sd.c
+@@ -1563,8 +1563,8 @@ cont:
+ 	if (!oldcard) {
+ 		/* Read/parse the extension registers. */
+ 		err = sd_read_ext_regs(card);
+-		if (err)
+-			goto free_card;
++		//if (err)
++		//	goto free_card;
+ 	}
+ 
+ 	/* Enable internal SD cache if supported. */

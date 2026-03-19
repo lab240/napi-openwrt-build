@@ -1,0 +1,28 @@
+{
+	"luci-app-mbpoll": {
+		"description": "Grant access to Modbus Poll test tool",
+		"read": {
+			"ubus": {
+				"file": [ "exec", "list", "read" ],
+				"luci": [ "*" ]
+			},
+			"file": {
+				"/usr/bin/mbpoll": [ "exec" ],
+				"/usr/bin/mbscan": [ "exec" ],
+				"/bin/sh": [ "exec" ],
+				"/bin/ls": [ "exec" ],
+				"/dev/ttyS1": [ "read" ],
+				"/dev/ttyS2": [ "read" ],
+				"/dev/ttyUSB*": [ "read" ],
+				"/sys/class/tty": [ "list" ]
+			}
+		},
+		"write": {
+			"file": {
+				"/dev/ttyS1": [ "write" ],
+				"/dev/ttyS2": [ "write" ],
+				"/dev/ttyUSB*": [ "write" ]
+			}
+		}
+	}
+}

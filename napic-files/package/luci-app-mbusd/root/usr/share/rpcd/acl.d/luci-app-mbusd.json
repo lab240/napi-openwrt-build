@@ -1,0 +1,21 @@
+{
+  "luci-app-mbusd": {
+    "read": {
+      "uci": ["mbusd"],
+      "ubus": {"service": ["list"]},
+      "file": {
+        "/etc/init.d/mbusd": ["exec", "read"],
+        "/etc/rc.d/": ["list"],
+        "/bin/sh": ["exec"],
+        "/usr/bin/pgrep": ["exec"],
+        "/proc/*/cmdline": ["read"]
+      }
+    },
+    "write": {
+      "uci": ["mbusd"],
+      "file": {
+        "/etc/init.d/mbusd": ["exec"]
+      }
+    }
+  }
+}

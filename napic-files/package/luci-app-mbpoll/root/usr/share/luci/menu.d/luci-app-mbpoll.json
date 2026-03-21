@@ -1,0 +1,14 @@
+{
+	"admin/services/mbpoll": {
+		"title": "Modbus Poll",
+		"order": 30,
+		"action": {
+			"type": "view",
+			"path": "mbpoll"
+		},
+		"depends": {
+			"acl": [ "luci-app-mbpoll" ],
+			"uci": {}
+		}
+	}
+}

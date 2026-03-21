@@ -1,0 +1,118 @@
+'use strict';
+'require view';
+'require form';
+'require uci';
+'require tools.widgets as widgets';
+
+return view.extend({
+	render: function() {
+		var m, s, o;
+
+		m = new form.Map('mbusd', _('Modbus Gateway'),
+			_('Configuration for mbusd - Modbus TCP to RTU/ASCII gateway'));
+
+		s = m.section(form.TypedSection, 'mbusd', _('General Settings'));
+		s.anonymous = true;
+		s.addremove = false;
+
+		/* Enable */
+		o = s.option(form.Flag, 'enabled', _('Enable'));
+		o.rmempty = false;
+
+		/* TCP port */
+		o = s.option(form.Value, 'port', _('TCP Port'),
+			_('Modbus TCP listening port (default: 502)'));
+		o.datatype = 'port';
+		o.placeholder = '502';
+		o.rmempty = false;
+
+		/* Log level */
+		o = s.option(form.ListValue, 'loglevel', _('Log Level'));
+		o.value('0', _('0 - None'));
+		o.value('1', _('1 - Error'));
+		o.value('2', _('2 - Warning'));
+		o.value('3', _('3 - Info'));
+		o.value('4', _('4 - Debug'));
+		o.default = '2';
+
+		/* Max connections */
+		o = s.option(form.Value, 'max_connections', _('Max Connections'));
+		o.datatype = 'uinteger';
+		o.placeholder = '32';
+		o.optional = true;
+
+		/* Timeout */
+		o = s.option(form.Value, 'timeout', _('Timeout (ms)'));
+		o.datatype = 'uinteger';
+		o.placeholder = '60';
+		o.optional = true;
+
+		s = m.section(form.TypedSection, 'mbusd', _('Serial Port Settings'));
+		s.anonymous = true;
+		s.addremove = false;
+
+		/* Device */
+		o = s.option(form.Value, 'device', _('Serial Device'));
+		o.placeholder = '/dev/ttyUSB0';
+		o.rmempty = false;
+		o.value('/dev/ttyUSB0', '/dev/ttyUSB0');
+		o.value('/dev/ttyUSB1', '/dev/ttyUSB1');
+		o.value('/dev/ttyS0', '/dev/ttyS0');
+		o.value('/dev/ttyS1', '/dev/ttyS1');
+		o.value('/dev/ttyS2', '/dev/ttyS2');
+		o.value('/dev/ttyS3', '/dev/ttyS3');
+
+		/* Baud rate */
+		o = s.option(form.ListValue, 'speed', _('Baud Rate'));
+		o.value('1200',   '1200');
+		o.value('2400',   '2400');
+		o.value('4800',   '4800');
+		o.value('9600',   '9600');
+		o.value('19200',  '19200');
+		o.value('38400',  '38400');
+		o.value('57600',  '57600');
+		o.value('115200', '115200');
+		o.default = '19200';
+
+		/* Data bits */
+		o = s.option(form.ListValue, 'databits', _('Data Bits'));
+		o.value('7', '7');
+		o.value('8', '8');
+		o.default = '8';
+
+		/* Parity */
+		o = s.option(form.ListValue, 'parity', _('Parity'));
+		o.value('N', _('None'));
+		o.value('E', _('Even'));
+		o.value('O', _('Odd'));
+		o.default = 'N';
+
+		/* Stop bits */
+		o = s.option(form.ListValue, 'stopbits', _('Stop Bits'));
+		o.value('1', '1');
+		o.value('2', '2');
+		o.default = '2';
+
+		/* RTS */
+		o = s.option(form.ListValue, 'rts', _('RTS Mode'),
+			_('RTS signal control for RS485 direction switching'));
+		o.value('0', _('0 - None'));
+		o.value('1', _('1 - Up before send'));
+		o.value('2', _('2 - Down before send'));
+		o.default = '0';
+
+		/* RTU retries */
+		o = s.option(form.Value, 'rtu_retries', _('RTU Retries'));
+		o.datatype = 'uinteger';
+		o.placeholder = '3';
+		o.optional = true;
+
+		/* RTU wait */
+		o = s.option(form.Value, 'rtu_wait', _('RTU Wait (ms)'));
+		o.datatype = 'uinteger';
+		o.placeholder = '500';
+		o.optional = true;
+
+		return m.render();
+	}
+});

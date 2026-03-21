@@ -1,0 +1,10 @@
+{
+	"admin/services/mbusd": {
+		"title": "Modbus Gateway",
+		"order": 60,
+		"action": {
+			"type": "view",
+			"path": "mbusd"
+		}
+	}
+}

@@ -7,7 +7,7 @@ This repository contains all customizations needed to turn a vanilla OpenWrt sna
 
 ## Supported hardware
 
-![](img/srn.jpeg)
+![alt text](img/boards.jpeg)
 
 ### RK3308 platform (Napi-C / Napi-P / Napi-Slot)
 
@@ -19,11 +19,11 @@ This repository contains all customizations needed to turn a vanilla OpenWrt sna
 
 ### RK3568 platform (Napi 2)
 
-![](img/front-1.jpg)
-
 | Board | SoC | RAM | Storage | Ethernet | Docs |
 |-------|-----|-----|---------|----------|------|
 | [NapiLab Napi 2](https://napiworld.ru/) | RK3568 | 4GB DDR4 | 32GB eMMC + SD | 2x Gigabit | Industrial gateway |
+
+> Board documentation, schematics, and design files: [napilab/napi-boards](https://github.com/napilab/napi-boards)
 
 ---
 
@@ -321,13 +321,12 @@ cd /opt/zigbee2mqtt && npm start
 
 Web UI available at `http://<IP>:8080/`
 
-> Requires 512 MB RAM and ~500 MB free disk space. Mosquitto is already pre-installed in this build. Napi 2 with 4GB RAM is recommended for Zigbee2MQTT.
-
+> Requires 512 MB RAM and ~500 MB free disk space. Mosquitto is already pre-installed in this build. 
 ---
 
 ## Changelog
 
-### v2.0.0
+### v1.1.0
 - **NapiLab Napi 2 (RK3568) support** — new platform with dual Gigabit Ethernet, 4GB RAM
 - Full router mode: LAN (192.168.1.1) + WAN (DHCP) + NAT
 - HDMI framebuffer console with USB keyboard support — kernel log and login on monitor

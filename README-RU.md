@@ -14,9 +14,9 @@
 
 | Плата | SoC | RAM | Хранилище | Ethernet | Тип |
 |-------|-----|-----|-----------|----------|-----|
-| [NapiLab Napi-C](https://napiworld.ru/docs/napi-intro/) | RK3308 | 256/512 МБ | 4 ГБ NAND — 32 ГБ eMMC | 100 Мбит/с | Промышленный SBC |
-| [NapiLab Napi-P](https://napiworld.ru/docs/napi-intro/) | RK3308 | 256/512 МБ | 4 ГБ NAND — 32 ГБ eMMC | 100 Мбит/с | Промышленный SBC |
-| [NapiLab Napi-Slot](https://napiworld.ru/docs/napi-som-intro) | RK3308 | 256/512 МБ | 4 ГБ NAND — 32 ГБ eMMC | 100 Мбит/с | SOM |
+| [NapiLab Napi-C](https://napiworld.ru/docs/napi-intro/) | RK3308 | 512 МБ | 4 ГБ NAND — 32 ГБ eMMC | 100 Мбит/с | Промышленный SBC |
+| [NapiLab Napi-P](https://napiworld.ru/docs/napi-intro/) | RK3308 | 512 МБ | 4 ГБ NAND — 32 ГБ eMMC | 100 Мбит/с | Промышленный SBC |
+| [NapiLab Napi-Slot](https://napiworld.ru/docs/napi-som-intro) | RK3308 | 512 МБ | 4 ГБ NAND — 32 ГБ eMMC | 100 Мбит/с | SOM |
 
 ### Платформа RK3568 (Napi 2)
 

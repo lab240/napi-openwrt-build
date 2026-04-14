@@ -4,6 +4,17 @@
 
 ## Репозиторий содержит все кастомизации, превращающие ванильный OpenWrt snapshot в полностью функциональный промышленный шлюз Modbus TCP с веб-интерфейсом.
 
+## Загрузки
+
+Готовые образы прошивок:
+
+| Платформа | Загрузка |
+| --- | --- |
+| Napi-C / Napi-P / Napi-Slot (RK3308) | [download.napilinux.ru/linuximg/napic/openwrt/](https://download.napilinux.ru/linuximg/napic/openwrt/) |
+| Napi 2 (RK3568) | [download.napilinux.ru/linuximg/napi2/openwrt/](https://download.napilinux.ru/linuximg/napi2/openwrt/) |
+
+---
+
 ## Поддерживаемое железо
 
 ![alt text](img/boards.jpeg)
@@ -407,7 +418,7 @@ make -j$(nproc) EXTRA_IMAGE_NAME=$(date +%d%b_%H%M)
 
 Сборка поддерживает запуск Zigbee2MQTT на OpenWrt. Поскольку OpenWrt использует **musl libc**, стандартные бинарники Node.js не работают - нужна специальная сборка musl/aarch64.
 
-Готовый архив доступен в [Releases](https://github.com/lab240/napi-openwrt-build/releases):
+Готовый архив доступен на [download.napilinux.ru/apps/zigbee2mqtt-arm-openwrt/](https://download.napilinux.ru/apps/zigbee2mqtt-arm-openwrt/):
 
 ```
 zigbee2mqtt-2.9.1-openwrt-aarch64-musl.tar.gz

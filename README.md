@@ -4,6 +4,17 @@ Production-ready OpenWrt builds for **NapiLab Napi** industrial IoT gateways bas
 
 ## This repository contains all customizations needed to turn a vanilla OpenWrt snapshot into a fully functional industrial Modbus TCP gateway with a polished web interface.
 
+## Downloads
+
+Pre-built firmware images:
+
+| Platform | Download |
+| --- | --- |
+| Napi-C / Napi-P / Napi-Slot (RK3308) | [download.napilinux.ru/linuximg/napic/openwrt/](https://download.napilinux.ru/linuximg/napic/openwrt/) |
+| Napi 2 (RK3568) | [download.napilinux.ru/linuximg/napi2/openwrt/](https://download.napilinux.ru/linuximg/napi2/openwrt/) |
+
+---
+
 ## Supported hardware
 
 ![alt text](img/boards.jpeg)
@@ -407,7 +418,7 @@ make -j$(nproc) EXTRA_IMAGE_NAME=$(date +%d%b_%H%M)
 
 This build supports running Zigbee2MQTT on OpenWrt. Since OpenWrt uses **musl libc**, the standard Node.js binaries won't work - a special musl/aarch64 build is required.
 
-A pre-built archive is available in [Releases](https://github.com/lab240/napi-openwrt-build/releases):
+A pre-built archive is available at [download.napilinux.ru/apps/zigbee2mqtt-arm-openwrt/](https://download.napilinux.ru/apps/zigbee2mqtt-arm-openwrt/):
 
 ```
 zigbee2mqtt-2.9.1-openwrt-aarch64-musl.tar.gz

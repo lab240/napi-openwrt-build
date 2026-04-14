@@ -295,7 +295,7 @@
 };
 
 &usb20_otg {
-	dr_mode = "peripheral";
+	dr_mode = "host";
 	status = "okay";
 };
 
@@ -319,4 +319,9 @@
 	pinctrl-names = "default";
 	pinctrl-0 = <&uart4_xfer>;
 	status = "okay";
+};
+&uart3 {
+    pinctrl-names = "default";
+    pinctrl-0 = <&uart3_xfer>;
+    status = "okay";
 };

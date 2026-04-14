@@ -440,50 +440,6 @@ define Device/radxa_rock-pi-s
 endef
 TARGET_DEVICES += radxa_rock-pi-s
 
-define Device/napilab_napic
-  $(Device/rk3308)
-  DEVICE_VENDOR := NapiLab
-  DEVICE_MODEL := Napi-C
-  DEVICE_DTS := rk3308-napi-c
-  SUPPORTED_DEVICES := napilab,napic radxa,rockpis
-  BOOT_SCRIPT := rock-pi-s
-  UBOOT_DEVICE_NAME := napic-rk3308
-#  DEVICE_PACKAGES := kmod-rtw88-8723ds kmod-usb-net-cdc-ncm kmod-usb-net-rndis wpad-basic-mbedtls \
-  DEVICE_PACKAGES := \
-  kmod-rtw88-8723ds \
-  kmod-usb-net-cdc-ncm \
-  kmod-usb-net-rndis \
-  wpad-basic-mbedtls \
-  kmod-fs-ext4 \
-  kmod-fs-msdos \
-  kmod-fs-vfat \
-  kmod-fs-exfat \
-  kmod-fs-ntfs3 \
-  kmod-usb-storage \
-  kmod-usb-serial-option \
-  kmod-usb-net-qmi-wwan \
-  uqmi \
-  minicom \
-  htop \
-  nano \
-  lsblk \
-  usbutils \
-  tcpdump \
-  ethtool \
-  mosquitto \
-  mosquitto-client \
-  screen \
-  xz-utils \
-  mbpoll \
-  openssh-sftp-server \
-  bash \
-  luci-ssl \
-  luci-theme-openwrt-2020 \
-  luci-proto-qmi \
-  luci-app-mbusd
-endef
-TARGET_DEVICES += napilab_napic
-
 define Device/radxa_zero-3e
   $(Device/rk3566)
   DEVICE_VENDOR := Radxa
@@ -528,3 +484,46 @@ define Device/xunlong_orangepi-r1-plus-lts
   DEVICE_PACKAGES := kmod-usb-net-rtl8152
 endef
 TARGET_DEVICES += xunlong_orangepi-r1-plus-lts
+
+define Device/napilab_napic
+  $(Device/rk3308)
+  DEVICE_VENDOR := NapiLab
+  DEVICE_MODEL := Napi-C
+  DEVICE_DTS := rk3308-napi-c
+  SUPPORTED_DEVICES := napilab,napic radxa,rockpis
+  BOOT_SCRIPT := rock-pi-s
+  UBOOT_DEVICE_NAME := napic-rk3308
+  DEVICE_PACKAGES := \
+  kmod-rtw88-8723ds \
+  kmod-usb-net-cdc-ncm \
+  kmod-usb-net-rndis \
+  wpad-basic-mbedtls \
+  kmod-fs-ext4 \
+  kmod-fs-msdos \
+  kmod-fs-vfat \
+  kmod-fs-exfat \
+  kmod-fs-ntfs3 \
+  kmod-usb-storage \
+  kmod-usb-serial-option \
+  kmod-usb-net-qmi-wwan \
+  uqmi \
+  minicom \
+  htop \
+  nano \
+  lsblk \
+  usbutils \
+  tcpdump \
+  ethtool \
+  mosquitto \
+  mosquitto-client \
+  screen \
+  xz-utils \
+  mbpoll \
+  openssh-sftp-server \
+  bash \
+  luci-ssl \
+  luci-theme-openwrt-2020 \
+  luci-proto-qmi \
+  luci-app-mbusd
+endef
+TARGET_DEVICES += napilab_napic

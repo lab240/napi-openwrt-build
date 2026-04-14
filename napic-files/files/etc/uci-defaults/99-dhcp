@@ -1,6 +1,6 @@
 #!/bin/sh
-
-uci set network.lan.proto='dhcp'
-uci commit network
-
-exit 0
+if [ ! -e /sys/class/net/eth1 ]; then
+    # Одна сетевуха - не раздаём DHCP
+    uci set dhcp.lan.ignore='1'
+fi
+uci commit dhcp

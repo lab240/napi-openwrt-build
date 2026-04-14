@@ -50,7 +50,6 @@ define U-Boot/napic-rk3308
   BUILD_DEVICES:= \
     napilab_napic
 endef
-
 # RK3328 boards
 
 define U-Boot/rk3328/Default
@@ -434,51 +433,8 @@ define U-Boot/rock-5c-rk3588s
 endef
 
 UBOOT_TARGETS := \
-  nanopc-t4-rk3399 \
-  nanopi-r4s-rk3399 \
-  rock-4c-plus-rk3399 \
-  rock-4se-rk3399 \
-  rock-pi-4-rk3399 \
-  rockpro64-rk3399 \
   rock-pi-s-rk3308 \
-  napic-rk3308 \
-  nanopi-r2c-rk3328 \
-  nanopi-r2c-plus-rk3328 \
-  nanopi-r2s-rk3328 \
-  orangepi-r1-plus-rk3328 \
-  orangepi-r1-plus-lts-rk3328 \
-  roc-cc-rk3328 \
-  rock64-rk3328 \
-  rock-pi-e-rk3328 \
-  rock-pi-e-v3-rk3328 \
-  hinlink-h28k-rk3528 \
-  radxa-e20c-rk3528 \
-  rock-2-rk3528 \
-  nanopi-r3s-rk3566 \
-  radxa-cm3-io-rk3566 \
-  radxa-zero-3-rk3566 \
-  rock-3c-rk3566 \
-  bpi-r2-pro-rk3568 \
-  easepi-r1-rk3568 \
-  fastrhino-r66s-rk3568 \
-  hinlink-h66k-rk3568 \
-  hinlink-h68k-rk3568 \
-  nanopi-r5c-rk3568 \
-  nanopi-r5s-rk3568 \
-  radxa-e25-rk3568 \
-  rock-3a-rk3568 \
-  rock-3b-rk3568 \
-  generic-rk3576 \
-  rock-4d-rk3576 \
-  generic-rk3588 \
-  nanopc-t6-rk3588 \
-  rock-5-itx-rk3588 \
-  rock5b-rk3588 \
-  sige7-rk3588 \
-  nanopi-r6c-rk3588s \
-  nanopi-r6s-rk3588s \
-  rock5a-rk3588s \
-  rock-5c-rk3588s
+  napic-rk3308 
 
 UBOOT_CONFIGURE_VARS += USE_PRIVATE_LIBGCC=yes
 
